@@ -4,7 +4,7 @@ services:
   api:
     restart: always
     build: ./api
-    hostname: api
+    hostname: gcrawler-api
     environment:
       - TZ=Asia/Taipei
     volumes:
@@ -44,7 +44,7 @@ services:
   crawler:
     restart: always
     build: ./crawler
-    hostname: gcrawler-net
+    hostname: gcrawler-crawler
     environment:
       - TZ=Asia/Taipei
     volumes:
@@ -53,7 +53,7 @@ services:
     #tty: true
     command: python -c "import test_google; test_google()"
     networks:
-      - datashop-net
+      - gcrawler-net
     logging:
       driver: json-file
       options:

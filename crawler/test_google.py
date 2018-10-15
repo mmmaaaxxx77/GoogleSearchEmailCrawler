@@ -85,7 +85,7 @@ def crawler_email(curl):
     return match
 
 
-url = 'http://crawler/api/inscheduledjob'
+url = 'http://gcrawler-api/api/inscheduledjob'
 
 
 def save_data(id, skip_count, total_count, filename):
