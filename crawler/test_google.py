@@ -173,7 +173,7 @@ for da in data:
         df = DataFrame({'URL': l2, '網頁名稱': l1, 'EMAIL': l3})
         title = title.replace(" ", "")
 
-        path = ""
+        path = "/data/"
         filename = f'{create_time}_{title}.xlsx'
         df.to_excel(path + filename, sheet_name='sheet1', index=False)
 

@@ -9,6 +9,7 @@ services:
       - TZ=Asia/Taipei
     volumes:
       - /etc/localtime:/etc/localtime
+      - /home/johnny/GCRAWLER/data:/data/
     ports:
       - "5766:8000"
     container_name: gcrawler-api
@@ -49,6 +50,7 @@ services:
       - TZ=Asia/Taipei
     volumes:
       - /etc/localtime:/etc/localtime
+      - /home/johnny/GCRAWLER/data:/data/
     container_name: gcrawler-crawler
     #tty: true
     command: python -c "import test_google; test_google()"
