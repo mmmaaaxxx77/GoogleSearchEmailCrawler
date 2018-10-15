@@ -19,6 +19,9 @@ WORKDIR /app/geckoDriver
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
 RUN tar -zxvf geckodriver-v0.22.0-linux64.tar.gz
 
+# set display port to avoid crash
+ENV DISPLAY=:99
+
 ENV PYTHONBUFFERED 1
 RUN mkdir /tmp/excel
 WORKDIR /app
