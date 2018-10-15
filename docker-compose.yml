@@ -11,7 +11,7 @@ services:
       - /etc/localtime:/etc/localtime
     ports:
       - "5766:8000"
-    container_name: api
+    container_name: gcrawler-api
     #command: python manage.py runserver 0.0.0.0:8000
     command: bash -c "uwsgi --ini uwsgi.ini"
     networks:
@@ -49,7 +49,7 @@ services:
       - TZ=Asia/Taipei
     volumes:
       - /etc/localtime:/etc/localtime
-    container_name: crawler
+    container_name: gcrawler-crawler
     #tty: true
     command: python -c "import test_google; test_google()"
     networks:
