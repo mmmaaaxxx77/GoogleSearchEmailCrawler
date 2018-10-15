@@ -27,7 +27,7 @@ def run_job(tilte, url):
         # 'do_sleep': False,
         # 'browser_mode': 'normal',
         #'chromedriver_path': '/Users/johnny/Downloads/chromedriver',
-        'chromedriver_path': '/app/chromedriver',
+        'chromedriver_path': '/usr/local/bin/chromedriver',
         'do_caching': False,
         # 'print_results': 'summarize',
         'google_search_url': url,
