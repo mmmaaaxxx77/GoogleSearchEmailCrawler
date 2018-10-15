@@ -1,0 +1,63 @@
+version: "2"
+
+services:
+  api:
+    restart: always
+    build: ./api
+    hostname: api
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /etc/localtime:/etc/localtime
+    ports:
+      - "5666:8000"
+    container_name: api
+    #command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "uwsgi --ini uwsgi.ini"
+    networks:
+      - gcrawler-net
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+
+#  web:
+#    restart: always
+#    build: ./web
+#    hostname: web
+#    environment:
+#      - TZ=Asia/Taipei
+#    volumes:
+#      - /etc/localtime:/etc/localtime
+#    ports:
+#      - "5667:3000"
+#    container_name: datashop-web
+#    command: npm run start
+#    #tty: true
+#    networks:
+#      - gcrawler-net
+#    logging:
+#      driver: json-file
+#      options:
+#        max-size: 10m
+
+  crawler:
+    restart: always
+    build: ./crawler
+    hostname: gcrawler-net
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /etc/localtime:/etc/localtime
+    container_name: crawler
+    #tty: true
+    command: python -c "import test_google; test_google()"
+    networks:
+      - datashop-net
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+
+networks:
+  gcrawler-net:
