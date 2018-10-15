@@ -2,9 +2,16 @@ FROM python:3.6.3
 
 RUN mkdir /app
 # Install chrome driver
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+RUN apt-get -y update
+RUN apt-get install -y google-chrome-stable
+
 WORKDIR /app/chromeDriver
 RUN apt-get update
-RUN apt-get install unzip libnss3-dev libgconf
+RUN apt-get install -y unzip
+RUN apt-get install -y libnss3-dev
+RUN apt-get install -y libgconf
 RUN wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN apt-get remove -y unzip
