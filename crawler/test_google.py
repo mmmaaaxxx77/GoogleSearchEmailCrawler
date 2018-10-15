@@ -178,7 +178,7 @@ for da in data:
         df.to_excel(path + filename, sheet_name='sheet1', index=False)
 
         # save
-        if len(crawler_result) == 0:
+        if len(crawler_result) > 0:
             save_data(id, skip_count, len(crawler_result), filename)
     except Exception as e:
         print(f"Exception {e}")
