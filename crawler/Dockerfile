@@ -4,7 +4,7 @@ RUN mkdir /app
 # Install chrome driver
 WORKDIR /app/chromeDriver
 RUN apt-get update
-RUN apt-get install unzip
+RUN apt-get install unzip libnss3-dev libgconf
 RUN wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN apt-get remove -y unzip
