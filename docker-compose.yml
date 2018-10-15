@@ -10,7 +10,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
     ports:
-      - "5666:8000"
+      - "5766:8000"
     container_name: api
     #command: python manage.py runserver 0.0.0.0:8000
     command: bash -c "uwsgi --ini uwsgi.ini"
