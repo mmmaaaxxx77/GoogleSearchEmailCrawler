@@ -85,7 +85,7 @@ def crawler_email(curl):
     return match
 
 
-url = 'http://gcrawler-api/api/inscheduledjob'
+url = 'http://gcrawler-api:8000/api/inscheduledjob'
 
 
 def save_data(id, skip_count, total_count, filename):
@@ -96,12 +96,12 @@ def save_data(id, skip_count, total_count, filename):
         'filename': filename
     }
     try:
-        requests.post(url, data=data, json=True, port=8000)
+        requests.post(url, data=data, json=True)
     except Exception as e:
         print(f"Save Exception {e}")
 
 
-resp = requests.get(url=url, port=8000)
+resp = requests.get(url=url)
 data = resp.json()
 # print(data[0])
 # url_obj = urlparse(data[0]['query_url'])
