@@ -23,11 +23,12 @@ def run_job(tilte, url):
         'num_results_per_page': 10,  # this is ignored by bing, 10 results per page
         'num_pages_for_keyword': 50,
         'scrape_method': 'selenium',
+        #'scrape_method': 'http',
         'sel_browser': 'chrome',
         # 'do_sleep': False,
-        # 'browser_mode': 'normal',
+        'browser_mode': 'normal',
         #'chromedriver_path': '/Users/johnny/Downloads/chromedriver',
-        #'chromedriver_path': '/app/chromeDriver/chromedriver',
+        'chromedriver_path': '/app/chromeDriver/chromedriver',
         'do_caching': False,
         # 'print_results': 'summarize',
         'google_search_url': url,
@@ -86,6 +87,7 @@ def crawler_email(curl):
 
 
 url = 'http://gcrawler-api:8000/api/inscheduledjob'
+#url = 'http://localhost:8000/api/inscheduledjob'
 
 
 def save_data(id, skip_count, total_count, filename):
@@ -103,7 +105,7 @@ def save_data(id, skip_count, total_count, filename):
 
 resp = requests.get(url=url)
 data = resp.json()
-# print(data[0])
+print(data)
 # url_obj = urlparse(data[0]['query_url'])
 # query_obj = parse_qs(url_obj.query)
 # print(query_obj['as_q'][0])
