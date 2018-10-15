@@ -68,7 +68,7 @@ skip = [
 
 
 def crawler_email(curl):
-    resp = requests.get(url=curl, timeout=30)
+    resp = requests.get(url=curl, timeout=30, port=8000)
     content = resp.text
     match = re.findall(r'[\w\.-]+@[\w\.-]+\.[\w\.-]+', content)
     # match = re.findall(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', content)
@@ -96,7 +96,7 @@ def save_data(id, skip_count, total_count, filename):
         'filename': filename
     }
     try:
-        requests.post(url, data=data, json=True)
+        requests.post(url, data=data, json=True, port=8000)
     except Exception as e:
         print(f"Save Exception {e}")
 
