@@ -8,7 +8,6 @@ RUN apt-get -y update
 RUN apt-get install -y google-chrome-stable
 
 WORKDIR /app/chromeDriver
-RUN apt-get update
 RUN apt-get install -y unzip
 RUN apt-get install -y libnss3-dev
 RUN apt-get install -y libgconf
@@ -20,9 +19,6 @@ RUN apt-get remove -y unzip
 WORKDIR /app/geckoDriver
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
 RUN tar -zxvf geckodriver-v0.22.0-linux64.tar.gz
-
-
-WORKDIR /app/GoogleScraper
 
 ENV PYTHONBUFFERED 1
 RUN mkdir /tmp/excel
