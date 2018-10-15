@@ -1,7 +1,7 @@
 # Default
-colorlog==3.0.1
-beautifulsoup4==4.6.0
-xlsxwriter==1.0.5
+#colorlog==3.0.1
+#beautifulsoup4==4.6.0
+#xlsxwriter==1.0.5
 git+git://github.com/NikolaiT/GoogleScraper/
 pandas
 requests

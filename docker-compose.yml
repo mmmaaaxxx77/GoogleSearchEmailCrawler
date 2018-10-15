@@ -50,8 +50,8 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
     container_name: gcrawler-crawler
-    #tty: true
-    command: python -c "import test_google; test_google()"
+    tty: true
+    #command: python -c "import test_google; test_google()"
     networks:
       - gcrawler-net
     logging:
