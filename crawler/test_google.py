@@ -113,69 +113,72 @@ print(data)
 for da in data:
     total_result = []
     url_obj = urlparse(da['query_url'])
-    query_obj = parse_qs(url_obj.query)
-    title = query_obj['as_q'][0]
-    id = da['id']
-    create_time = da['created_at']
-    create_time = datetime.datetime.strptime(create_time, "%Y-%m-%dT%H:%M:%S.%fZ").date().strftime("%Y-%m-%d")
+    try:
+        query_obj = parse_qs(url_obj.query)
+        title = query_obj['as_q'][0]
+        id = da['id']
+        create_time = da['created_at']
+        create_time = datetime.datetime.strptime(create_time, "%Y-%m-%dT%H:%M:%S.%fZ").date().strftime("%Y-%m-%d")
 
-    skip_url = []
-    if len(da['skip_url']) > 2:
-        skip_url = da['skip_url']
-        skip_url = skip_url.split(",")
+        skip_url = []
+        if len(da['skip_url']) > 2:
+            skip_url = da['skip_url']
+            skip_url = skip_url.split(",")
 
-    r = run_job(title, da['query_url'])
-    total_result.extend(r)
+        r = run_job(title, da['query_url'])
+        total_result.extend(r)
 
-    skip_count = 0
+        skip_count = 0
 
-    crawler_result = []
-    for res in total_result:
-        stitle = res['title']
-        link = res['link']
+        crawler_result = []
+        for res in total_result:
+            stitle = res['title']
+            link = res['link']
 
-        counti = True
+            counti = True
 
-        for sku in skip_url:
-            if sku in link:
-                counti = False
-                break
-        if not counti:
-            skip_count += 1
-            continue
+            for sku in skip_url:
+                if sku in link:
+                    counti = False
+                    break
+            if not counti:
+                skip_count += 1
+                continue
 
-        try:
-            emails = crawler_email(link)
-            crawler_result.append({
-                'title': stitle,
-                'link': link,
-                'emails': emails
-            })
-        except Exception as e:
-            print(f"Exception {link}")
-            print(e)
+            try:
+                emails = crawler_email(link)
+                crawler_result.append({
+                    'title': stitle,
+                    'link': link,
+                    'emails': emails
+                })
+            except Exception as e:
+                print(f"Exception {link}")
+                print(e)
 
-    l1 = []
-    l2 = []
-    l3 = []
+        l1 = []
+        l2 = []
+        l3 = []
 
-    for res in crawler_result:
-        stitle = res['title']
-        link = res['link']
-        emails = res['emails']
-        for email in emails:
-            l1.append(stitle)
-            l2.append(link)
-            l3.append(email)
+        for res in crawler_result:
+            stitle = res['title']
+            link = res['link']
+            emails = res['emails']
+            for email in emails:
+                l1.append(stitle)
+                l2.append(link)
+                l3.append(email)
 
-    df = DataFrame({'URL': l2, '網頁名稱': l1, 'EMAIL': l3})
-    title = title.replace(" ", "")
+        df = DataFrame({'URL': l2, '網頁名稱': l1, 'EMAIL': l3})
+        title = title.replace(" ", "")
 
-    path = ""
-    filename = f'{create_time}_{title}.xlsx'
-    df.to_excel(path + filename, sheet_name='sheet1', index=False)
+        path = ""
+        filename = f'{create_time}_{title}.xlsx'
+        df.to_excel(path + filename, sheet_name='sheet1', index=False)
 
-    # save
-    save_data(id, skip_count, len(crawler_result), filename)
+        # save
+        save_data(id, skip_count, len(crawler_result), filename)
+    except Exception as e:
+        print(f"Exception {e}")
 
 sleep(30)
