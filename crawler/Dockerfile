@@ -1,24 +1,23 @@
 FROM python:3.6.3
 
-# install google chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get -y update
-RUN apt-get install -y google-chrome-stable
+RUN mkdir /app
+# Install chrome driver
+WORKDIR /app/chromeDriver
+RUN apt-get update
+RUN apt-get install unzip
+RUN wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+RUN unzip chromedriver_linux64.zip
+RUN apt-get remove -y unzip
 
-# install chromedriver
-RUN apt-get install -yqq unzip
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+# Install gecko driver
+WORKDIR /app/geckoDriver
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
+RUN tar -zxvf geckodriver-v0.22.0-linux64.tar.gz
 
-# set display port to avoid crash
-ENV DISPLAY=:99
 
-# install selenium
-RUN pip install selenium==3.8.0
+WORKDIR /app/GoogleScraper
 
 ENV PYTHONBUFFERED 1
-RUN mkdir /app
 RUN mkdir /tmp/excel
 WORKDIR /app
 ADD . /app
