@@ -5,6 +5,7 @@ xlsxwriter==1.0.5
 requests==2.13.0
 git+git://github.com/NikolaiT/GoogleScraper/
 pandas
+requests
 
 # For Mongo
 # pymongo==3.4.0
