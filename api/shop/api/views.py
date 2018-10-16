@@ -204,7 +204,7 @@ class Excel(APIView):
         job = Job.objects.filter(id=id).first()
 
         filename = job.filename
-        with open(f"/data/{filename}", "r", encoding='utf-8') as excel:
+        with open(f"/data/{filename}", "r", encoding='unicode') as excel:
             data = excel.read()
 
         response = HttpResponse(data, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
