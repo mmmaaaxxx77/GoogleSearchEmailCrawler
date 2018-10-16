@@ -185,3 +185,22 @@ class AllJob(APIView):
         job.save()
 
         return HttpResponseRedirect(redirect_to=request.META['HTTP_REFERER'])
+
+
+class Excel(APIView):
+    def get(self, request, format=None):
+
+        id = request.data['id']
+
+        request.data['status'] = StatusType.DONE.value
+
+        job = Job.objects.filter(id=id).first()
+
+        filename = job.filename
+
+        with open(f"/data/{filename}", "r") as excel:
+            data = excel.read()
+
+        response = HttpResponse(data,content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=%s_Report.xlsx' % id
+        return response
