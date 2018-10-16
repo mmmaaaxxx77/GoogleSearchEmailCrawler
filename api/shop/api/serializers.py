@@ -13,4 +13,5 @@ class KeypoUserSerializer(serializers.ModelSerializer):
                   'skip_count',
                   'status',
                   'created_at',
-                  'updated_at')
+                  'updated_at',
+                  'filename')
