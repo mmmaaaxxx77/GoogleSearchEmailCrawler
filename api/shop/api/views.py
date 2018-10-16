@@ -164,6 +164,7 @@ class AllJob(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        request.POST._mutable = True
 
         query_url = request.data['query_url']
 
