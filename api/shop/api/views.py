@@ -9,7 +9,7 @@ from wsgiref.util import FileWrapper
 import pytz
 import xlsxwriter
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
@@ -162,3 +162,16 @@ class AllJob(APIView):
         )
 
         return Response(serializer.data)
+
+    def post(self, request, format=None):
+
+        query_url = request.data['query_url']
+
+        skip_url = request.data.get('skip_url', "")
+
+        job = Job()
+        job.query_url = query_url
+        job.skip_url = skip_url
+        job.save()
+
+        return HttpResponseRedirect(redirect_to=request.META['HTTP_REFERER'])
