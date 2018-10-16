@@ -175,7 +175,7 @@ for da in data:
 
         path = "/data/"
         filename = f'{create_time}_{title}.xlsx'
-        df.to_excel(path + filename, sheet_name='sheet1', index=False)
+        df.to_excel(path + filename, sheet_name='sheet1', index=False, encoding='utf-8')
 
         # save
         if len(crawler_result) > 0:

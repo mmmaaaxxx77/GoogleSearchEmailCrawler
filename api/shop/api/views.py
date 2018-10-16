@@ -191,14 +191,13 @@ class Excel(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format=None):
-
         id = self.request.query_params.get('id', None)
 
         if not id:
             return Response(
-                    'no id',
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                'no id',
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         request.data['status'] = StatusType.DONE.value
 
@@ -209,6 +208,6 @@ class Excel(APIView):
         with open(f"/data/{filename}", "r") as excel:
             data = excel.read()
 
-        response = HttpResponse(data,content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response = HttpResponse(data, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = 'attachment; filename=%s_Report.xlsx' % id
         return response
