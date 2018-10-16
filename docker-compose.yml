@@ -23,25 +23,25 @@ services:
       options:
         max-size: 10m
 
- web:
-   restart: always
-   build: ./web
-   hostname: gcrawler-web
-   environment:
-     - TZ=Asia/Taipei
-   volumes:
-     - /etc/localtime:/etc/localtime
-   ports:
-     - "5767:3000"
-   container_name: gcrawler-web
-   command: npm run start
-   #tty: true
-   networks:
-     - gcrawler-net
-   logging:
-     driver: json-file
-     options:
-       max-size: 10m
+  web:
+    restart: always
+    build: ./web
+    hostname: gcrawler-web
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /etc/localtime:/etc/localtime
+    ports:
+      - "5767:3000"
+    container_name: gcrawler-web
+    command: npm run start
+    #tty: true
+    networks:
+      - gcrawler-net
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
 
   crawler:
     restart: always
