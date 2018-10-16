@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^user$', User.as_view(), name='get_user_detail'),
     url(r'^inscheduledjob', InScheduledJob.as_view(), name='inscheduledjob'),
     url(r'^alljob', AllJob.as_view(), name='alljob'),
-    url(r'^downloadexcel', Excel.as_view(), name='downloadExcel'),
+    #url(r'^downloadexcel', Excel.as_view(), name='downloadExcel'),
 ]
