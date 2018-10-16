@@ -192,7 +192,13 @@ class Excel(APIView):
 
     def get(self, request, format=None):
 
-        id = request.data['id']
+        id = self.request.query_params.get('id', None)
+
+        if not id:
+            return Response(
+                    'no id',
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
         request.data['status'] = StatusType.DONE.value
 
