@@ -204,10 +204,9 @@ class Excel(APIView):
         job = Job.objects.filter(id=id).first()
 
         filename = job.filename
-        excel = open(f"/data/{filename}" % id, "rb")
-        # with open(f"/data/{filename}", "r") as excel:
-        #     data = excel.read()
+        with open(f"/data/{filename}", "r") as excel:
+            data = excel.read()
 
-        response = HttpResponse(excel, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response = HttpResponse(data, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = 'attachment; filename=%s.xlsx' % id
         return response
