@@ -4,5 +4,6 @@ RUN mkdir /app
 WORKDIR /app
 ADD . /app
 RUN pip install -r pip.txt
+RUN mkdir /db
 RUN python manage.py collectstatic --noinput
 #RUN python manage.py runserver

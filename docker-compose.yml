@@ -10,7 +10,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
       - /home/johnny/GCRAWLER/data:/data/
-      - /home/johnny/GCRAWLER/GoogleSearchEmailCrawler/db.sqlite3:/app/db.sqlite3
+      - /home/johnny/GCRAWLER/db.sqlite3:/db/db.sqlite3
     ports:
       - "5766:8000"
     container_name: gcrawler-api
