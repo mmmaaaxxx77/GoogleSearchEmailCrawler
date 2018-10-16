@@ -188,6 +188,8 @@ class AllJob(APIView):
 
 
 class Excel(APIView):
+    permission_classes = (AllowAny,)
+
     def get(self, request, format=None):
 
         id = request.data['id']
