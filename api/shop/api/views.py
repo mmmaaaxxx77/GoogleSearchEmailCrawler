@@ -21,6 +21,7 @@ from rest_framework.authentication import TokenAuthentication, get_authorization
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from urllib.parse import urlparse, parse_qs
 
 from shop.api.models import Job, StatusType
 
@@ -168,11 +169,19 @@ class AllJob(APIView):
 
         query_url = request.data['query_url']
 
+        if not query_url or len(query_url) <= 0:
+            return HttpResponseRedirect(redirect_to=request.META['HTTP_REFERER'])
+
+        url_obj = urlparse(query_url)
+        query_obj = parse_qs(url_obj.query)
+        title = query_obj['as_q'][0]
+
         skip_url = request.data.get('skip_url', "")
 
         job = Job()
         job.query_url = query_url
         job.skip_url = skip_url
+        job.title = title
         job.save()
 
         return HttpResponseRedirect(redirect_to=request.META['HTTP_REFERER'])
