@@ -30,8 +30,8 @@ def run_job(tilte, url):
         # 'do_sleep': False,
         # 'browser_mode': 'normal',
         'browser_mode': 'headless',
-        'chromedriver_path': '/Users/johnny/Downloads/chromedriver',
-        # 'chromedriver_path': '/app/chromeDriver/chromedriver',
+        # 'chromedriver_path': '/Users/johnny/Downloads/chromedriver',
+        'chromedriver_path': '/app/chromeDriver/chromedriver',
         'do_caching': False,
         # 'print_results': 'summarize',
         'google_search_url': url,
@@ -92,8 +92,8 @@ def crawler_email(curl):
     return match, title
 
 
-# url = 'http://gcrawler-api:8000/api/inscheduledjob'
-url = 'http://localhost:8000/api/inscheduledjob'
+url = 'http://gcrawler-api:8000/api/inscheduledjob'
+# url = 'http://localhost:8000/api/inscheduledjob'
 
 
 def save_data(id, skip_count, total_count, filename):
@@ -265,8 +265,8 @@ for da in data:
         else:
             title = title.replace(" ", "")
 
-        # path = "/data/"
-        path = ""
+        path = "/data/"
+        # path = ""
         filename = f'{create_time}_{title}.xlsx'
         df.to_excel(path + filename, sheet_name='sheet1', index=False, encoding='utf-8')
 
