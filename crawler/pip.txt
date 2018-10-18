@@ -1,6 +1,6 @@
 # Default
 #colorlog==3.0.1
-#beautifulsoup4==4.6.0
+beautifulsoup4
 #xlsxwriter==1.0.5
 selenium
 openpyxl
