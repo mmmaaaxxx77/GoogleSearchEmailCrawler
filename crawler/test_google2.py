@@ -25,7 +25,6 @@ def run_job(tilte, url):
         # 'num_results_per_page': 10,  # this is ignored by bing, 10 results per page
         'num_pages_for_keyword': 100,
         'scrape_method': 'selenium',
-        'num_workers': 4,
         # 'scrape_method': 'http',
         'sel_browser': 'chrome',
         # 'do_sleep': False,
@@ -68,11 +67,7 @@ def run_job(tilte, url):
 
 skip = [
     '.jpg', '.JPG',
-    '.PNG', '.png',
-    '.mp3', '.MP3',
-    '.mp4', '.MP4',
-    '.pdf', '.PDF',
-    '.doc', '.DOC', '.docx', '.DOCX',
+    '.PNG', '.png'
 ]
 
 
@@ -122,7 +117,7 @@ def expand_url(url):
     hot = url_obj.netloc
     host_url = f"{url_obj.scheme}://{url_obj.netloc}"
 
-    resp = requests.get(url=host_url, timeout=15)
+    resp = requests.get(url=host_url, timeout=30)
     content = resp.text
 
     soup = BeautifulSoup(content, 'html.parser')
@@ -237,13 +232,13 @@ for da in data:
                 continue
 
             try:
-                emails, sstitle = crawler_email(link)
+                emails, title = crawler_email(link)
                 crawler_result.append({
-                    'title': stitle if stitle else sstitle,
+                    'title': title if title else stitle,
                     'link': link,
                     'emails': emails
                 })
-                sleep(0.5)
+                sleep(1)
             except Exception as e:
                 # print(traceback.format_exc())
                 print(f"Exception {link}")
@@ -265,6 +260,10 @@ for da in data:
                     l3.append(email)
 
         df = DataFrame({'URL': l2, '網頁名稱': l1, 'EMAIL': l3})
+        if not title:
+            title = "無法取得網站名稱"
+        else:
+            title = title.replace(" ", "")
 
         path = "/data/"
         # path = ""
@@ -273,7 +272,7 @@ for da in data:
 
         # save
         if len(crawler_result) > 0:
-            save_data(id, skip_count, len(total_result), filename)
+            save_data(id, skip_count, len(crawler_result), filename)
     except Exception as e:
         print(traceback.format_exc())
         print(f"Exception {e}")
